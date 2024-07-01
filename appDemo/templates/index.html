@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Image Compression App</title>
+    <style>
+        * {
+            font-size: large;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #2b2d30;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: xx-large;
+            color: orangered;
+            padding-bottom: 20px;
+        }
+
+        div {
+            width: fit-content;
+            color: floralwhite;
+        }
+
+        div * {
+            margin: 10px;
+            width: fit-content;
+        }
+
+        button {
+            padding: 5px;
+            font-size: x-large;
+        }
+
+        #main-div {
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<div id="main-div">
+    <h1>Image Compression</h1>
+    <form action="/compress" method="post" enctype="multipart/form-data">
+        <div>
+            <label for="file">Upload Image:</label>
+            <input type="file" name="file" id="file" required>
+        </div>
+        <div>
+            <label for="method">Compression Method:</label>
+            <select name="method" id="method" required>
+                <option value="jpeg">JPEG</option>
+                <option value="png">PNG</option>
+                <option value="kmeans">K-means</option>
+                <option value="rle">RLE</option>
+            </select>
+        </div>
+        <div id="qualityInput">
+            <label for="quality">Quality (0-100 for JPEG, 0-10 for PNG):</label>
+            <input type="number" name="quality" id="quality" min="0" max="100" value="20">
+        </div>
+        <div id="kInput" style="display: none;">
+            <label for="k">K (for K-means):</label>
+            <input type="number" name="k" id="k" min="1" value="8">
+        </div>
+        <button type="submit">Compress</button>
+    </form>
+</div>
+<script>
+    const methodSelect = document.getElementById('method');
+    const qualityInput = document.getElementById('qualityInput');
+    const kInput = document.getElementById('kInput');
+
+    methodSelect.addEventListener('change', function () {
+        if (this.value === 'jpeg') {
+            qualityInput.style.display = 'block';
+            kInput.style.display = 'none';
+            document.getElementById("quality").min = 0;
+            document.getElementById("quality").max = 100;
+            document.getElementById("quality").value = 20;
+        } else if (this.value === 'png') {
+            qualityInput.style.display = 'block';
+            kInput.style.display = 'none';
+            document.getElementById("quality").min = 1;
+            document.getElementById("quality").max = 10;
+            document.getElementById("quality").value = 5;
+        } else if (this.value === 'kmeans') {
+            qualityInput.style.display = 'none';
+            kInput.style.display = 'block';
+        } else {
+            qualityInput.style.display = 'none';
+            kInput.style.display = 'none';
+        }
+    });
+</script>
+</body>
+</html>
