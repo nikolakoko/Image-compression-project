@@ -24,7 +24,7 @@ def compress():
     if file.filename == '':
         return 'No selected file'
     if file:
-        filename = secure_filename(file.filename)
+        secure_filename(file.filename)
         file_stream = io.BytesIO(file.read())
 
         compression_method = request.form['method']
