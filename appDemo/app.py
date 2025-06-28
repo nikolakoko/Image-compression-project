@@ -1,12 +1,12 @@
-from flask import Flask, request, render_template, send_file
-from werkzeug.utils import secure_filename
 import io
-import jpeg
-import png
-import kmeans
-import rle
+
 import cv2
 import numpy as np
+from flask import Flask, request, render_template, send_file
+from werkzeug.utils import secure_filename
+
+import kmeans
+import rle
 
 app = Flask(__name__)
 
