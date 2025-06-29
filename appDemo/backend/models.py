@@ -4,7 +4,7 @@ from database import db
 
 
 class CompressionLog(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     filename = db.Column(db.String(120), nullable=False)
     method = db.Column(db.String(20), nullable=False)
     quality = db.Column(db.Integer, nullable=True)

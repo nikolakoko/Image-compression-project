@@ -186,12 +186,13 @@
 </template>
 
 <script>
+// Updated App.vue script section with environment-aware API URL
 export default {
   name: 'App',
   data() {
     return {
-      // Configuration
-      apiBaseUrl: 'http://localhost:5000',
+      // Configuration - automatically detect API URL based on environment
+      apiBaseUrl: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000/api',
 
       // File handling
       selectedFile: null,
@@ -315,7 +316,8 @@ export default {
       }
 
       try {
-        const response = await fetch(`${this.apiBaseUrl}/api/compress`, {
+        console.log('Sending request to:', `${this.apiBaseUrl}/compress`);
+        const response = await fetch(`${this.apiBaseUrl}/compress`, {
           method: 'POST',
           body: formData
         });
@@ -324,7 +326,7 @@ export default {
           const blob = await response.blob();
           this.downloadUrl = URL.createObjectURL(blob);
 
-          // Get filename from Content-Disposition header or use default
+          // Get filename from the Content-Disposition header or use default
           const contentDisposition = response.headers.get('Content-Disposition');
           this.downloadFilename = 'compressed_image';
           if (contentDisposition) {
@@ -386,7 +388,7 @@ export default {
   max-height: 300px;
   overflow: hidden;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .preview-image {
@@ -415,7 +417,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0,0,0,0.5);
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;

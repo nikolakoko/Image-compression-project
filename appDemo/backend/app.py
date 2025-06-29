@@ -1,3 +1,4 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from database import db, init_db
@@ -6,7 +7,16 @@ from routes import register_routes
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///compressions.db'
+    database_url = os.environ.get('DATABASE_URL')
+
+    # Database configuration - support both SQLite and PostgreSQL
+    if database_url:
+        # Production/Docker - use PostgreSQL
+        app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+    else:
+        # Development fallback - use SQLite
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///compressions.db'
+
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50MB max file size
 
@@ -28,4 +38,5 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=False, host='0.0.0.0', port=port)
