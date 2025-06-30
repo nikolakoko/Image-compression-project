@@ -43,10 +43,3 @@ jobs:
           context: ./appDemo/frontend
           push: true
           tags: ${{ env.FRONTEND_IMAGE }}:${{ env.DOCKER_TAG }}
-          
-      - name: Deploy notification
-        run: |
-          echo "🚀 New images built and pushed!"
-          echo "Backend: ${{ env.BACKEND_IMAGE }}:${{ env.DOCKER_TAG }}"
-          echo "Frontend: ${{ env.FRONTEND_IMAGE }}:${{ env.DOCKER_TAG }}"
-          echo "Database: postgres:15-alpine (official image)"
