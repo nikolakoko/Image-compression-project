@@ -1,4 +1,3 @@
-# Backend Dockerfile
 FROM python:3.9-slim
 
 # Set working directory
@@ -18,3 +17,4 @@ EXPOSE 5000
 
 # Run the application
 CMD ["python", "app.py"]
+

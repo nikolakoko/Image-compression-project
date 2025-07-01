@@ -1,4 +1,3 @@
-# Frontend Dockerfile
 FROM node:22-slim as build-stage
 
 # Set working directory
@@ -30,3 +29,4 @@ EXPOSE 80
 
 # Start nginx
 CMD ["nginx", "-g", "daemon off;"]
+
