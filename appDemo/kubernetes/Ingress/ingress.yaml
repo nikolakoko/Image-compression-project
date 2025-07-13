@@ -4,7 +4,7 @@ metadata:
   name: image-compressor-ingress
   namespace: image-compressor
   annotations:
-    kubernetes.io/ingress.class: "traefik"  # Adjust based on your ingress controller
+    kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
     - host: image-compressor.local
